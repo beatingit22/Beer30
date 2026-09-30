@@ -77,7 +77,7 @@ jobs:
         shell: bash
         run: ctest --preset windows_msvc --build-config Release --output-on-failure
 
-       - name: Package Windows test build
+      - name: Package Windows test build
         shell: pwsh
         run: |
           cmake --install build --config Release
