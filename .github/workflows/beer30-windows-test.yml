@@ -77,4 +77,17 @@ jobs:
         shell: bash
         run: ctest --preset windows_msvc --build-config Release --output-on-failure
 
-      # No artifact upload: this is not yet a properly branded distributable launcher.
+       - name: Package Windows test build
+        shell: pwsh
+        run: |
+          cmake --install build --config Release
+          if (-not (Test-Path install/beer30launcher.exe)) {
+            throw 'Launcher executable was not installed'
+          }
+
+      - name: Save Windows test download
+        uses: actions/upload-artifact@v4
+        with:
+          name: Beer30-Windows-test
+          path: install/
+          if-no-files-found: error
